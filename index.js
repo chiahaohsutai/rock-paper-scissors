@@ -6,6 +6,7 @@ const choices = [rock, paper, scissors];
 const winsDisplay = document.getElementById('wins')
 const lossesDisplay = document.getElementById('losses')
 const drawsDisplay = document.getElementById('draws')
+const winner = document.getElementById('result')
 
 const opposites = new Map();
 opposites.set(rock, paper);
@@ -24,10 +25,13 @@ function play(playerMove) {
 
     if (playerMove === botMove) {
         draws++;
+        winner.innerText = 'Its a draw.'
     } else if (opposites.get(playerMove) === botMove) {
         losses++;
+        winner.innerText = 'You lose...'
     } else {
         wins++;
+        winner.innerText = 'You win!'
     };
 };
 function updateScore() {
@@ -49,3 +53,10 @@ document.getElementById('paper').addEventListener("click", () => {
 document.getElementById('scissors').addEventListener("click", () => {
     render(scissors);
 });
+document.getElementById('reset').addEventListener("click", () => {
+    winner.innerText = '';
+    wins = 0;
+    losses = 0;
+    draws = 0;
+    updateScore();
+})
