@@ -17,12 +17,13 @@ let wins = 0;
 let losses = 0;
 let draws = 0;
 
-function play(playerMove) {
-    let idx = Math.floor(Math.random()*choices.length)
-    let botMove = choices[idx];
+function getRandomMove() {
+    let idx = Math.floor(Math.random()*choices.length);
+    let move = choices[idx];
+    return move;
+};
 
-    console.log(`Bot: ${botMove}, Player: ${playerMove}`);
-
+function play(playerMove, botMove) {
     if (playerMove === botMove) {
         draws++;
         winner.innerText = 'Its a draw.'
@@ -34,25 +35,36 @@ function play(playerMove) {
         winner.innerText = 'You win!'
     };
 };
+
 function updateScore() {
     winsDisplay.innerText = wins;
     lossesDisplay.innerText = losses;
-    drawsDisplay.innerText = draws
+    drawsDisplay.innerText = draws;
 };
-const render = (move) => {
-    play(move);
+
+function renderMoves() {
+    // do something.
+};
+
+const render = (playerMove) => {
+    botMove = getRandomMove()
+    play(playerMove, botMove);
+    renderMoves(playerMove, botMove);
     updateScore();
 };
 
 document.getElementById('rock').addEventListener("click", () => {
     render(rock);
 });
+
 document.getElementById('paper').addEventListener("click", () => {
     render(paper);
 });
+
 document.getElementById('scissors').addEventListener("click", () => {
     render(scissors);
 });
+
 document.getElementById('reset').addEventListener("click", () => {
     winner.innerText = '';
     wins = 0;

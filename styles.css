@@ -51,6 +51,7 @@ html {
     gap: 20px;
     justify-content: center;
     margin-bottom: 20px;
+    margin-top: 20px;
 }
 .result {
     margin-top: 24px;
@@ -75,4 +76,22 @@ html {
 }
 .reset button:active {
     opacity: 50%;
+}
+.moves {
+    display: flex;
+    justify-content: space-around;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.user, .bot {
+    display: flex;
+    flex-direction: column;
+}
+.user img, .bot img {
+    border-radius: 50%;
+    border-style: solid;
+    border-color: rgb(60, 60, 60);
+    border-width: 1px;
+    padding: 4px 4px 4px 4px;
+    background-color: rgb(244, 244, 244);
 }
