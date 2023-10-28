@@ -1,17 +1,19 @@
-const rock = 'rock'
-const paper = 'paper'
-const scissors = 'scissors'
-const choices = [rock, paper, scissors];
+const choices = ['rock', 'paper', 'scissors'];
+const opposites = new Map([
+    ['rock', 'paper'],
+    ['paper', 'scissors'],
+    ['scissors', 'rock'],
+]);
+const imgPaths = new Map([
+    ['rock', 'images/rock.png'],
+    ['paper', 'images/paper.png'],
+    ['scissors', 'images/scissors.png'],
+]);
 
 const winsDisplay = document.getElementById('wins')
 const lossesDisplay = document.getElementById('losses')
 const drawsDisplay = document.getElementById('draws')
 const winner = document.getElementById('result')
-
-const opposites = new Map();
-opposites.set(rock, paper);
-opposites.set(paper, scissors);
-opposites.set(scissors, rock);
 
 let wins = 0;
 let losses = 0;
@@ -36,14 +38,46 @@ function play(playerMove, botMove) {
     };
 };
 
+function reset() {
+    let userContainer = document.getElementById('user')
+    let botContainer = document.getElementById('bot')
+
+    userContainer.innerHTML = ''
+    botContainer.innerHTML = ''
+
+    winner.innerText = '';
+    wins = 0;
+    losses = 0;
+    draws = 0;
+    updateScore();
+}
+
 function updateScore() {
     winsDisplay.innerText = wins;
     lossesDisplay.innerText = losses;
     drawsDisplay.innerText = draws;
 };
 
-function renderMoves() {
-    // do something.
+function renderMove(title, id, move) {
+    let displayContainer = document.getElementById(id)
+    let titleContainer = document.createElement('div')
+    let iconCon = document.createElement('div')
+    let moveIcon = document.createElement('img');
+
+    displayContainer.innerHTML = ''
+    iconCon.className = 'display-move'
+
+    titleContainer.innerText = title
+    moveIcon.src = imgPaths.get(move)
+
+    displayContainer.appendChild(titleContainer)
+    displayContainer.appendChild(iconCon)
+    iconCon.appendChild(moveIcon)
+};
+
+function renderMoves(user, bot) {
+    renderMove('You', 'user', user)
+    renderMove('Bot', 'bot', bot)
 };
 
 const render = (playerMove) => {
@@ -54,21 +88,15 @@ const render = (playerMove) => {
 };
 
 document.getElementById('rock').addEventListener("click", () => {
-    render(rock);
+    render('rock');
 });
 
 document.getElementById('paper').addEventListener("click", () => {
-    render(paper);
+    render('paper');
 });
 
 document.getElementById('scissors').addEventListener("click", () => {
-    render(scissors);
+    render('scissors');
 });
 
-document.getElementById('reset').addEventListener("click", () => {
-    winner.innerText = '';
-    wins = 0;
-    losses = 0;
-    draws = 0;
-    updateScore();
-})
+document.getElementById('reset').addEventListener("click", reset)
